@@ -1,0 +1,66 @@
+@import "bootstrap-mixins.less";
+
+@orb-box-avatar-small-width: 250px;
+@box-rank-width: 80px;
+
+.orb-box {
+  text-align: center;
+
+  > section-menu {
+    text-align: left;
+  }
+
+  .avatar-placeholder {
+    width: 80%;
+    display: inline-block;
+
+    @media (min-width: @orb-screen-sm-min) {
+      display: inherit;
+      width: @orb-box-avatar-small-width;
+      float: left;
+    }
+  }
+
+  .header-content {
+    text-align: center;
+    @media (min-width: @orb-screen-sm-min) {
+      float: right;
+      width: 100%;
+      text-align: left;
+      margin-left: -@orb-box-avatar-small-width;
+      padding-left: (@orb-box-avatar-small-width + 20px);
+    }
+  }
+
+  .box-header {
+    text-align: center;
+
+    @media (min-width: @orb-screen-sm-min) {
+      text-align: left;
+    }
+  }
+
+  .box-overview {
+    display: table;
+    width: 100%;
+  }
+
+  .menu-content {
+    padding-left: @box-rank-width;
+  }
+
+  .box-title {
+    display: table-cell;
+    padding-left: @box-rank-width;
+
+    @media (min-width: @orb-screen-sm-min) {
+      padding-left: inherit;
+    }
+  }
+
+  .box-level-badge {
+    display: table-cell;
+    width: @box-rank-width;
+  }
+
+}

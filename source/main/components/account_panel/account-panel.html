@@ -1,0 +1,74 @@
+<div class="account-panel">
+
+  <div ng-switch="!!userPortfolio.active">
+
+    <div ng-switch-when="true">
+      Hello {{ userPortfolio.username }}!
+
+      <a ng-click="signOut()">Sign out</a>
+    </div>
+
+    <form name="credentialsForm" ng-switch-when="false" ng-submit="signInWithCredentials(credentialsForm)">
+
+      <h4>Sign in</h4>
+
+      <div ng-messages="credentialsForm.$error">
+        <p ng-message="credentials">Your credentials are incorrect.</p>
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-user"></span>
+        </span>
+        <input name="username"
+               ng-model="credentials.username"
+               ng-minlength="5"
+               ng-maxlength="12"
+               type="text"
+               class="form-control"
+               placeholder="Username">
+      </div>
+
+      <div ng-messages="credentialsForm.username.$error">
+        <p ng-message="minlength">Your login is too short.</p>
+        <p ng-message="maxlength">Your login is too long.</p>
+        <p ng-message="required">Your login is required.</p>
+      </div>
+
+      <div class="vspacer-small"></div>
+
+      <div class="input-group">
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-lock"></span>
+        </span>
+        <input name="password"
+               type="password"
+               ng-model="credentials.password"
+               class="form-control"
+               placeholder="Password">
+      </div>
+
+      <div ng-messages="credentialsForm.password.$error">
+        <p ng-message="minlength">Your password is too short.</p>
+        <p ng-message="maxlength">Your password is too long.</p>
+        <p ng-message="required">Your password is required.</p>
+      </div>
+
+      <div class="vspacer-small"></div>
+
+      <a ng-click="onNoAccountClicked()">Don't have an account?</a>
+
+      <div class="vspacer-small"></div>
+
+      <button type="submit" class="btn btn-primary pull-right">Sign in</button>
+
+      <div class="clearfix"></div>
+
+    </form>
+
+  </div>
+
+
+
+
+</div>

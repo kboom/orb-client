@@ -1,0 +1,64 @@
+@baseImagesUrl: "../images/";
+
+.imgsource(@src) {
+  background-image: url("@{baseImagesUrl}@{src}");
+}
+
+.size(@size) {
+  width: @size;
+  height: @size;
+}
+
+.orb-image {
+
+}
+
+//http://icon-download.com/other/circular-gift
+.gift-hunt {
+  .imgsource("circular-gift.png");
+}
+
+.orb-image.gift-hunt.big {
+  .size(256px);
+}
+
+//http://icon-download.com/other/four-boxes-with-ribbon-1
+.orb-image.gift-gather {
+  .imgsource("four-gifts.png");
+}
+
+.orb-image.gift-gather.big {
+  .size(256px);
+}
+
+.orb-image.box {
+  .imgsource("box.png");
+}
+
+.orb-image.box.big {
+  .size(256px);
+}
+
+.orb-image.in-offer-trade {
+  .imgsource("present-box-on-a-hand.png");
+}
+
+.orb-image.in-offer-trade.big {
+  .size(256px);
+}
+
+.orb-image.out-offer-trade {
+  .imgsource("man-with-giftbox.png");
+}
+
+.orb-image.out-offer-trade.big {
+  .size(256px);
+}
+
+.orb-image.accept-trade {
+  .imgsource("accept-sign.png");
+}
+
+.orb-image.accept-trade.big {
+  .size(256px);
+}

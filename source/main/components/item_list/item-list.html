@@ -1,0 +1,25 @@
+<div class="item-list">
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="(key, item) in items">
+
+      <div class="element-details">
+        <div class="media">
+          <div class="media-left">
+            <img class="item-image" ng-src="{{ item.thumbnail.url }}"/>
+          </div>
+          <div class="media-body">
+            <h3 class="media-heading">{{ item.name }}</h3>
+            <p class="s3">{{ item.description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="element-actions">
+        <button ng-click="removeItem(key)" type="button" class="btn btn-default" aria-label="Left Align">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </button>
+      </div>
+
+    </li>
+  </ul>
+</div>

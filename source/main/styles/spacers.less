@@ -1,0 +1,86 @@
+@spacer-tiny-height: 2px;
+@spacer-mini-height: 5px;
+@spacer-small-height: 10px;
+@spacer-medium-height: 20px;
+@spacer-large-height: 35px;
+@spacer-huge-height: 50px;
+
+@spacer-tiny-width: 2px;
+@spacer-mini-width: 5px;
+@spacer-small-width: 10px;
+@spacer-medium-width: 20px;
+@spacer-large-width: 35px;
+@spacer-huge-width: 50px;
+
+.hspacer {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: block;
+}
+
+.vspacer {
+  height: 100%;
+  font-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: block;
+}
+
+.height(@height) {
+  height: @height;
+}
+
+.width(@width) {
+  width: @width;
+}
+
+.vspacer-tiny:extend(.vspacer) {
+  .height(@spacer-tiny-height);
+}
+
+.vspacer-mini:extend(.vspacer) {
+  .height(@spacer-mini-height);
+}
+
+.vspacer-small:extend(.vspacer) {
+  .height(@spacer-small-height);
+}
+
+.vspacer-medium:extend(.vspacer) {
+  .height(@spacer-medium-height);
+}
+
+.vspacer-large:extend(.vspacer) {
+  .height(@spacer-large-height);
+}
+
+.vspacer-huge:extend(.vspacer) {
+  .height(@spacer-huge-height);
+}
+
+.hspacer-tiny:extend(.hspacer) {
+  .width(@spacer-tiny-width);
+}
+
+.hspacer-mini:extend(.hspacer) {
+  .width(@spacer-mini-width);
+}
+
+.hspacer-small:extend(.hspacer) {
+  .width(@spacer-small-width);
+}
+
+.hspacer-medium:extend(.hspacer) {
+  .width(@spacer-medium-width);
+}
+
+.hspacer-large:extend(.hspacer) {
+  .width(@spacer-large-width);
+}
+
+.hspacer-huge:extend(.hspacer) {
+  .width(@spacer-huge-width);
+}

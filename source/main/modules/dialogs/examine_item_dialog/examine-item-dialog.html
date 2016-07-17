@@ -1,0 +1,52 @@
+<div class="examine-item-dialog">
+
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <span class="glyphicon glyphicon-star"></span>
+    </div>
+
+    <div class="modal-header-center"><h3 class="modal-title">Item details</h3></div>
+
+    <div class="modal-header-right">
+
+      <div class="btn-group" role="group">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                  aria-expanded="false">
+            <span class="glyphicon glyphicon-chevron-down"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Dropdown link</a></li>
+            <li><a href="#">Dropdown link</a></li>
+          </ul>
+        </div>
+        <button ng-click="close()" type="button" class="btn btn-default">
+          Not interested
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body">
+
+    <item item-name="{{ selectedItem.name }}" selected-view-key="selectedView" ng-if="selectedItem.$resolved">
+      <item-cover class="item-cover" item-view-key="item-cover" item-images="selectedItem.images"
+                  item-view-tooltip="See the pictures"
+                  item-view-icon="glyphicon glyphicon-picture"></item-cover>
+      <item-details class="item-details" item-view-key="item-details" item-description="{{ selectedItem.description }}"
+                    item-tags="selectedItem.tags"
+                    item-view-tooltip="See the details"
+                    item-view-icon="glyphicon glyphicon-tag"></item-details>
+    </item>
+
+    <div data-ng-include="templateResolver.resolveTemplate('PARTIALS.SUGGEST_TRADE_PANEL')"></div>
+
+  </div>
+
+  <div class="modal-footer">
+    <button ng-click="close()" type="button" class="btn btn-default">Cancel</button>
+    <button ng-if="tradeManager.isTradeValid()" ng-click="createTrade()" type="button" class="btn btn-primary">Trade</button>
+  </div>
+
+</div>

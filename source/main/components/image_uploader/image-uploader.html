@@ -1,0 +1,29 @@
+<div class="image-uploader">
+
+  <image-upload-list
+    selected-image-key="selectedImageKey"
+    uploaded-images="uploadedImages"
+    on-remove-item="removeItem"
+    on-image-added="addImage"
+    on-save-changes="cropControl.cropImage"
+    on-revert-changes="restoreImage"
+    expanded="listExpanded">
+  </image-upload-list>
+
+  <div class="crop-area" content-loader="imageCropLoader">
+    <image-crop ng-if="processingContext"
+                control="cropControl"
+                on-busy="imageCropLoader.busy('IMAGE-CROP')"
+                on-ready="imageCropLoader.ready('IMAGE-CROP')"
+                on-change="onImageCropped($dataURI)"
+                result-image-max-height="1200"
+                result-image-max-width="1600"
+                result-image-min-height="400"
+                result-image-min-width="600"
+                result-image-format="image/jpeg"
+                result-image-quality="0.8"
+                input-image="processingContext.displayedImage"
+                output-image="processingContext.outputImage"></image-crop>
+  </div>
+
+</div>

@@ -1,0 +1,12 @@
+<div class="uploaded-image-item">
+  <div class="item-placeholder" ng-click="select()">
+    <div class="image-name">{{ imageName }}</div>
+    <div class="image-actions">
+      <button ng-click="remove(); $event.stopPropagation();" type="button" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-minus"></span>
+      </button>
+    </div>
+  </div>
+  <div class="vspacer-mini"></div>
+  <line-progress-bar percentage-based="false" progress-level="uploadProgress"></line-progress-bar>
+</div>

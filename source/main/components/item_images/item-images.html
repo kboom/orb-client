@@ -1,0 +1,15 @@
+<div class="item-images">
+
+  <div class="panel-header">
+    <div class="section-name">{{ currentContext.name }}</div>
+    <div ng-if="sectionContexts.length > 1" class="panel-switches">
+      <div class="btn-group">
+        <button ng-repeat="context in sectionContexts" ng-click="selectSection(config.key)"
+                ng-class="{ active : isSectionSelected(config.key) }" ng-tooltip="{{ config.tooltip }}"
+                type="button" class="btn btn-sm btn-default"><span class="{{ context.icon }}"></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="section-placeholder"></div>
+
+</div>

@@ -1,0 +1,27 @@
+<div class="trade">
+    <div class="trade-image-placeholder">
+        <div ng-click="onClicked()" class="trade-image-overlay">
+            <div class="right-buttons">
+                <div dropdown ng-if="settings" class="btn-group">
+                    <button dropdown-toggle type="button" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </button>
+                    <ul class="dropdown-menu pointed-dropdown-menu" role="menu">
+                        <li ng-repeat="option in settings"><a ng-click="option.onSelect()">{{ option.name }}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <span class="{{ getStatusIcon() }}"></span>
+        <img class="trade-image" ng-src="{{ tradeImageUrl }}"/>
+
+    </div>
+    <div class="details-bar">
+        <img class="box-icon" ng-src="{{ tradeBoxIconUrl }}"/>
+
+        <p class="details-status">{{ getStatusName() }}</p>
+
+        <p class="details-date">{{parseDate()}}</p>
+    </div>
+</div>
+

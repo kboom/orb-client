@@ -1,0 +1,105 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <!-- The following code takes care of including all external and internal dependencies into the application. When the
+application is built it will consist of a list of files whereas on distributed version there will be only two files
+containing minified and compressed application sources and its dependencies in another file. -->
+
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:css(.tmp) styles/externals.css -->
+  <!-- include: "type": "css", "files": "external/**/*.css" -->
+  <!-- endbuild -->
+
+  <!-- build:css(.tmp) styles/main.css -->
+  <!-- include: "type": "css", "files": "main/**/*.css" -->
+  <!-- endbuild -->
+
+
+  <!-- The following code takes care of including all external and internal dependencies into the application. When the
+   application is built it will consist of a list of files whereas on distributed version there will be only two files
+   containing minified and compressed application sources and its dependencies in another file. -->
+
+  <!-- build:js(.) scripts/oldieshim.js -->
+  <!--[if lt IE 9]>
+  <script src="bower_components/es5-shim/es5-shim.js"></script>
+  <script src="bower_components/json3/lib/json3.min.js"></script>
+  <![endif]-->
+  <!-- endbuild -->
+
+  <!-- build:js(.) scripts/vendor.js -->
+  <!-- bower:js -->
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:js({.tmp,app}) scripts/scripts.js -->
+
+  <!-- include: "type": "js", "files": "main/constants/constants.js" -->
+  <!-- include: "type": "js", "files": [ "main/constants/**/*.js", "!main/constants/constants.js" ] -->
+
+  <!-- include: "type": "js", "files": "main/utils/utils.js" -->
+  <!-- include: "type": "js", "files": [ "main/utils/**/*.js", "!main/utils/utils.js" ] -->
+
+  <!-- include: "type": "js", "files": "main/commons/**/*.js" -->
+
+  <!-- include: "type": "js", "files": "main/filters/filters.js" -->
+  <!-- include: "type": "js", "files": [ "main/filters/**/*.js", "!main/filters/filters.js" ] -->
+
+  <!-- include: "type": "js", "files": [ "main/components/**/*.js", "!main/components/components.js" ] -->
+  <!-- include: "type": "js", "files": "main/components/components.js" -->
+
+  <!-- include: "type": "js", "files": "main/directives/directives.js" -->
+  <!-- include: "type": "js", "files": [ "main/directives/**/*.js", "!main/directives/directives.js" ] -->
+
+  <!-- include: "type": "js", "files": "main/resources/resources.js" -->
+  <!-- include: "type": "js", "files": [ "main/resources/**/*.js", "!main/resources/resources.js" ] -->
+
+  <!-- include: "type": "js", "files": "main/core/core.js" -->
+  <!-- include: "type": "js", "files": [ "main/core/**/*.js", "!main/core/core.js" ] -->
+
+  <!-- include: "type": "js", "files": "main/commons/commons.js" -->
+  <!-- include: "type": "js", "files": [ "main/commons/**/*.js", "!main/commons/commons.js" ] -->
+
+  <!-- include: "type": "js", "files": "main/structure/structure.js" -->
+  <!-- include: "type": "js", "files": [ "main/structure/**/*.js", "!main/structure/structure.js" ] -->
+
+  <!-- include: "type": "js", "files": [ "main/partials/**/*.js", "!main/partials/partials.js" ] -->
+  <!-- include: "type": "js", "files": "main/partials/partials.js" -->
+
+  <!-- include: "type": "js", "files": [ "main/modules/**/*.js", "!main/modules/modules.js" ] -->
+  <!-- include: "type": "js", "files": "main/modules/modules.js" -->
+
+  <!-- include: "type": "js", "files": "main/app.js" -->
+
+  <!-- include: "type": "js", "files": "main/translations/*.js" -->
+
+  <!-- include: "type": "js", "files": "main/config/*.js" -->
+
+  <!-- endbuild -->
+
+</head>
+<body ng-app="orb">
+
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+  your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<div id="viewport-root" ng-controller="PageController">
+
+  <div class="orb-navigation" ui-view="navigation"></div>
+  <div class="orb-content" ui-view="content"></div>
+  <div class="orb-footer" ui-view="footer"></div>
+
+</div>
+
+</body>
+</html>

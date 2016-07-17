@@ -1,0 +1,37 @@
+<div class="suggest-trade-dialog">
+
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <span class="glyphicon glyphicon-star"></span>
+    </div>
+
+    <div class="modal-header-center"><h3 class="modal-title">Trade items</h3></div>
+
+    <div class="modal-header-right">
+
+      <div class="btn-group" role="group">
+        <button ng-click="close()" type="button" class="btn btn-default">
+          Cancel
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body">
+
+    <h5>You are about to trade the following items:</h5>
+
+    <item-list items="tradedItems">
+
+    </item-list>
+
+  </div>
+
+  <div class="modal-footer">
+    <button ng-click="close()" type="button" class="btn btn-default">Cancel</button>
+    <button ng-click="bidAndClose()" type="button" class="btn btn-primary">Bid
+    </button>
+  </div>
+
+</div>

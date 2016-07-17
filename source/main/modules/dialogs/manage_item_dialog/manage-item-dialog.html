@@ -1,0 +1,83 @@
+<form name="manageItemForm" ng-submit="itemManager.saveItem()" class="manage-item-dialog" novalidate>
+
+  <div class="modal-header">
+    <modal-heading heading-icon="glyphicon glyphicon-star"
+                  heading-title="{{ item.itemId !== null ? 'Add item' : 'Edit item' }}"></modal-heading>
+  </div>
+
+  <div class="modal-body">
+
+    <form-component
+      label="Name"
+      error-message="error present"
+      minlength-message="The name is too short."
+      info-message="info info">
+      <input name="itemName"
+             class="form-control"
+             required
+             ng-model="item.name"
+             ng-required
+             ng-minlength="6"
+             max-length="40"
+             ng-pattern="/^[\w ]*$/"
+             type="text"/>
+    </form-component>
+
+    <item-images
+      selected-section-key="itemImagesPanel.selectedSectionKey">
+      <item-images-gallery ng-if="item.images.length > 0" images="item.images"></item-images-gallery>
+      <item-images-uploader on-image-saved="uploadImage"></item-images-uploader>
+    </item-images>
+
+    <div class="vspacer-small"></div>
+
+    <form-component
+      label="Description"
+      error-message="error present"
+      minlength-message="The name is too short."
+      info-message="info info">
+      <text-angular ng-model="item.description"
+                    name="itemDescription"
+                    placeholder="Describe your item. Make sure you mention its real condition."
+                    ta-toolbar="[['h1','h2','h3','h4'],['bold','italics'],['justifyLeft','justifyCenter','justifyRight'],['indent','outdent'],['html','insertLink']]"></text-angular>
+    </form-component>
+
+    <form-component
+      label="Tags"
+      error-message="error present"
+      mintags-message="You must specify more tags!"
+      info-message="info info">
+      <tags-input
+        name="itemTags"
+        ng-model="item.tags"
+        display-property="name"
+        min-tags="{{ minTagCount }}"
+        max-tags="{{ maxTagCount }}"
+        placeholder="{{ tagPrompt }}"
+        min-length="3"
+        max-length="20"
+        allowed-tags-pattern="^[\w, ]*$">
+        <auto-complete source="loadMatchingTags($query)"></auto-complete>
+      </tags-input>
+    </form-component>
+
+    <div class="hspacer-small"></div>
+
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" required>I know and accept the <a>terms of use</a>
+      </label>
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <button ng-click="close()" type="button" class="btn btn-default">Cancel</button>
+    <button ng-disabled="!manageItemForm.$valid" ng-class="{ disabled: !manageItemForm.$valid }" type="submit"
+            class="btn btn-primary">Save
+    </button>
+  </div>
+
+</form>
+
+

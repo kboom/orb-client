@@ -1,0 +1,76 @@
+.modal-backdrop {
+  height: 100%;
+  position: fixed;
+}
+
+/*
+  Modal
+*/
+
+
+.modal {
+  display: table;
+  width: 100%;
+  text-align: center;
+
+  .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    margin: 150px auto;
+    width: 80%;
+    max-width: 1000px;
+
+    @media only screen and (max-width: @screen-sm-min) {
+      margin: 0 auto;
+      width: 100%;
+    }
+  }
+
+  .modal-content {
+    @media only screen and (max-width: @screen-sm-min) {
+      border-radius: 0;
+    }
+  }
+
+  .modal-body {
+    max-width: 100%;
+  }
+
+  .modal-header {
+    display: table;
+    width: 100%;
+    vertical-align: middle;
+  }
+
+  .modal-header-image {
+    float: left;
+    vertical-align: middle;
+    height: 100%;
+  }
+
+  .modal-title {
+    height: 100%;
+    display: table-cell;
+  }
+
+  .modal-header-left {
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+  }
+
+  .modal-header-center {
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .modal-header-right {
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+  }
+
+}

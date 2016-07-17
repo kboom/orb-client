@@ -1,0 +1,62 @@
+.calc-item(@item-index, @item-gutter-width, @item-width) when (@item-index > 0) {
+  .item-@{item-index} {
+    width: (@item-index * @item-width);
+    position: relative;
+    min-height: 1px;
+    padding: (@item-gutter-width / 2);
+  }
+}
+
+.calc-item-offset(@item-index, @item-width) when (@item-index > 0) {
+  .item-offset-@{item-index} {
+    width: @item-index * @item-width;
+  }
+}
+
+.calc-item-push(@item-index, @item-width) when (@item-index > 0) {
+  .item-push-@{item-index} {
+    left: @item-index * @item-width;
+  }
+}
+
+.calc-item-push(@item-index, @item-width) when (@item-index = 0) {
+  .item-push-0 {
+    left: @item-index * @item-width;
+  }
+}
+
+.calc-item-pull(@item-index, @item-width) when (@item-index > 0) {
+  .item-pull-@{item-index} {
+    right: @item-index * @item-width;
+  }
+}
+
+.calc-item-pull(@item-index, @item-width) when (@item-index = 0) {
+  .item-pull-0 {
+    right: @item-index * @item-width;
+  }
+}
+
+.make-items(@item-gutter-width, @item-index, @item-width) when (@item-index > 0) {
+  .calc-item(@item-index, @item-gutter-width, @item-width);
+  .calc-item-offset(@item-index, @item-width);
+  .calc-item-push(@item-index, @item-width);
+  .calc-item-pull(@item-index, @item-width);
+  .make-items(@item-gutter-width, @item-index - 1, @item-width);
+}
+
+.make-container-segments(@item-width, @item-count, @max-items) when (@item-count < @max-items) {
+  @container-width: (@item-width * @item-count);
+  @media (min-width: @container-width) {
+    width: @container-width;
+  }
+  .make-container-segments(@item-width, @item-count + 1, @max-items);
+}
+
+.make-container(@item-gutter-width, @item-width, @min-items, @max-items) {
+  margin-left: auto;
+  margin-right: auto;
+  min-width: (@min-items * @item-width);
+  .make-container-segments(@item-width, @min-items, @max-items);
+  .make-items(@item-gutter-width, @max-items - @min-items, @item-width);
+}

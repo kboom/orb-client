@@ -1,0 +1,357 @@
+angular.module('orb.components.imageCrop.classes').factory('cropHost', ['$document', 'cropAreaSquare', 'cropEXIF', 'lodash', function ($document, CropAreaSquare, cropEXIF, lodash) {
+
+  'use strict';
+
+  // Get Element's Offset
+  var getElementOffset = function (elem) {
+    var box = elem.getBoundingClientRect();
+
+    var body = document.body;
+    var docElem = document.documentElement;
+
+    var scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+    var scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft;
+
+    var clientTop = docElem.clientTop || body.clientTop || 0;
+    var clientLeft = docElem.clientLeft || body.clientLeft || 0;
+
+    var top = box.top + scrollTop - clientTop;
+    var left = box.left + scrollLeft - clientLeft;
+
+    return {top: Math.round(top), left: Math.round(left)};
+  };
+
+  return function (elCanvas, opts, events) {
+    /* PRIVATE VARIABLES */
+
+    // Object Pointers
+    var ctx = null,
+      image = null,
+      theArea = null;
+
+    lodash.extend(opts, {
+      minCanvasDims: [100, 100],
+      maxCanvasDims: [300, 300],
+      resImgMaxSize: [800, 600],
+      resImgMinSize: [400, 400],
+      resImgFormat: 'image/jpeg',
+      resImgQuality: 1.0
+    }, opts);
+
+    /* PRIVATE FUNCTIONS */
+
+    // Draw Scene
+    function drawScene() {
+      // clear canvas
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+      if (image !== null) {
+        // draw source image
+        ctx.drawImage(image, 0, 0, ctx.canvas.width, ctx.canvas.height);
+
+        ctx.save();
+
+        // and make it darker
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
+        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+        ctx.restore();
+
+        // draw Area
+        theArea.draw();
+      }
+    }
+
+    // Resets CropHost
+    var resetCropHost = function () {
+      if (image !== null) {
+        theArea.setImage(image);
+        var imageDims = [image.width, image.height],
+          imageRatio = image.width / image.height,
+          canvasDims = imageDims;
+
+        if (canvasDims[0] > opts.maxCanvasDims[0]) {
+          canvasDims[0] = opts.maxCanvasDims[0];
+          canvasDims[1] = canvasDims[0] / imageRatio;
+        } else if (canvasDims[0] < opts.minCanvasDims[0]) {
+          canvasDims[0] = opts.minCanvasDims[0];
+          canvasDims[1] = canvasDims[0] / imageRatio;
+        }
+        if (canvasDims[1] > opts.maxCanvasDims[1]) {
+          canvasDims[1] = opts.maxCanvasDims[1];
+          canvasDims[0] = canvasDims[1] * imageRatio;
+        } else if (canvasDims[1] < opts.minCanvasDims[1]) {
+          canvasDims[1] = opts.minCanvasDims[1];
+          canvasDims[0] = canvasDims[1] * imageRatio;
+        }
+        elCanvas.prop('width', canvasDims[0]).prop('height', canvasDims[1]).css({
+          'margin-left': -canvasDims[0] / 2 + 'px',
+          'margin-top': -canvasDims[1] / 2 + 'px'
+        });
+
+        theArea.setX(ctx.canvas.width / 2);
+        theArea.setY(ctx.canvas.height / 2);
+        theArea.setSizeX(ctx.canvas.width / 2);
+        theArea.setSizeY(ctx.canvas.height / 2);
+      } else {
+        elCanvas.prop('width', 0).prop('height', 0).css({'margin-top': 0});
+      }
+
+      drawScene();
+    };
+
+    var getChangedTouches = function (event) {
+      if (angular.isDefined(event.changedTouches)) {
+        return event.changedTouches;
+      } else {
+        return event.originalEvent.changedTouches;
+      }
+    };
+
+    var onMouseMove = function (e) {
+      if (image !== null) {
+        var offset = getElementOffset(ctx.canvas),
+          pageX, pageY;
+        if (e.type === 'touchmove') {
+          pageX = getChangedTouches(e)[0].pageX;
+          pageY = getChangedTouches(e)[0].pageY;
+        } else {
+          pageX = e.pageX;
+          pageY = e.pageY;
+        }
+        theArea.processMouseMove(pageX - offset.left, pageY - offset.top);
+        drawScene();
+      }
+    };
+
+    var onMouseDown = function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (image !== null) {
+        var offset = getElementOffset(ctx.canvas),
+          pageX, pageY;
+        if (e.type === 'touchstart') {
+          pageX = getChangedTouches(e)[0].pageX;
+          pageY = getChangedTouches(e)[0].pageY;
+        } else {
+          pageX = e.pageX;
+          pageY = e.pageY;
+        }
+        theArea.processMouseDown(pageX - offset.left, pageY - offset.top);
+        drawScene();
+      }
+    };
+
+    var onMouseUp = function (e) {
+      if (image !== null) {
+        var offset = getElementOffset(ctx.canvas),
+          pageX, pageY;
+        if (e.type === 'touchend') {
+          pageX = getChangedTouches(e)[0].pageX;
+          pageY = getChangedTouches(e)[0].pageY;
+        } else {
+          pageX = e.pageX;
+          pageY = e.pageY;
+        }
+        theArea.processMouseUp(pageX - offset.left, pageY - offset.top);
+        drawScene();
+      }
+    };
+
+
+    this.getResultImageDataURI = function () {
+      var temp_ctx, temp_canvas;
+      temp_canvas = angular.element('<canvas></canvas>')[0];
+      temp_ctx = temp_canvas.getContext('2d');
+      if (image !== null) {
+        var areaSizeX = theArea.getSizeX();
+        var areaSizeY = theArea.getSizeY();
+        var outputImageWidth = image.width * areaSizeX / ctx.canvas.width;
+        var outputImageHeight = image.height * areaSizeY / ctx.canvas.height;
+        var aspectRatio = outputImageWidth / outputImageHeight;
+        if (outputImageWidth > opts.resImgMaxSize[0]) {
+          outputImageWidth = opts.resImgMaxSize[0];
+          outputImageHeight = outputImageWidth / aspectRatio;
+        } else if (outputImageHeight > opts.resImgMaxSize[1]) {
+          outputImageHeight = opts.resImgMaxSize[1];
+          outputImageWidth = outputImageHeight * aspectRatio;
+        }
+        temp_canvas.width = outputImageWidth;
+        temp_canvas.height = outputImageHeight;
+        temp_ctx.drawImage(image, (theArea.getX() - areaSizeX / 2) * (image.width / ctx.canvas.width), (theArea.getY() - areaSizeY / 2) * (image.height / ctx.canvas.height), outputImageWidth, outputImageHeight, 0, 0, outputImageWidth, outputImageHeight);
+      }
+      if (opts.resImgQuality !== null) {
+        return temp_canvas.toDataURL(opts.resImgFormat, opts.resImgQuality);
+      }
+      return temp_canvas.toDataURL(opts.resImgFormat);
+    };
+
+    this.setNewImageSource = function (imageSource) {
+      events.trigger('busy');
+      image = null;
+      resetCropHost();
+      events.trigger('image-updated');
+      if (!!imageSource) {
+        var newImage = new Image();
+        if (imageSource.substring(0, 4).toLowerCase() === 'http') {
+          newImage.crossOrigin = 'anonymous';
+        }
+        newImage.onload = function () {
+          events.trigger('load-done');
+
+          cropEXIF.getData(newImage, function () {
+            var orientation = cropEXIF.getTag(newImage, 'Orientation');
+
+            if ([3, 6, 8].indexOf(orientation) > -1) {
+              var canvas = document.createElement("canvas"),
+                ctx = canvas.getContext("2d"),
+                cw = newImage.width, ch = newImage.height, cx = 0, cy = 0, deg = 0;
+              switch (orientation) {
+                case 3:
+                  cx = -newImage.width;
+                  cy = -newImage.height;
+                  deg = 180;
+                  break;
+                case 6:
+                  cw = newImage.height;
+                  ch = newImage.width;
+                  cy = -newImage.height;
+                  deg = 90;
+                  break;
+                case 8:
+                  cw = newImage.height;
+                  ch = newImage.width;
+                  cx = -newImage.width;
+                  deg = 270;
+                  break;
+              }
+
+              canvas.width = cw;
+              canvas.height = ch;
+              ctx.rotate(deg * Math.PI / 180);
+              ctx.drawImage(newImage, cx, cy);
+
+              image = new Image();
+              image.src = canvas.toDataURL("image/png");
+            } else {
+              image = newImage;
+            }
+            resetCropHost();
+            events.trigger('image-updated');
+            events.trigger('ready');
+          });
+        };
+        newImage.onerror = function () {
+          events.trigger('load-error');
+        };
+        events.trigger('load-start');
+        newImage.src = imageSource;
+      }
+    };
+
+    this.setMaxDimensions = function (width, height) {
+      opts.maxCanvasDims = [width, height];
+
+      if (image !== null) {
+        var curWidth = ctx.canvas.width,
+          curHeight = ctx.canvas.height;
+
+        var imageDims = [image.width, image.height],
+          imageRatio = image.width / image.height,
+          canvasDims = imageDims;
+
+        if (canvasDims[0] > opts.maxCanvasDims[0]) {
+          canvasDims[0] = opts.maxCanvasDims[0];
+          canvasDims[1] = canvasDims[0] / imageRatio;
+        } else if (canvasDims[0] < opts.minCanvasDims[0]) {
+          canvasDims[0] = opts.minCanvasDims[0];
+          canvasDims[1] = canvasDims[0] / imageRatio;
+        }
+        if (canvasDims[1] > opts.maxCanvasDims[1]) {
+          canvasDims[1] = opts.maxCanvasDims[1];
+          canvasDims[0] = canvasDims[1] * imageRatio;
+        } else if (canvasDims[1] < opts.minCanvasDims[1]) {
+          canvasDims[1] = opts.minCanvasDims[1];
+          canvasDims[0] = canvasDims[1] * imageRatio;
+        }
+        elCanvas.prop('width', canvasDims[0]).prop('height', canvasDims[1]).css({
+          'margin-left': -canvasDims[0] / 2 + 'px',
+          'margin-top': -canvasDims[1] / 2 + 'px'
+        });
+
+        var ratioNewCurWidth = ctx.canvas.width / curWidth,
+          ratioNewCurHeight = ctx.canvas.height / curHeight;
+
+        theArea.setMinSizeX(ctx.canvas.width * Math.min(opts.resImgMinSize[0] / image.width, 1));
+        theArea.setMinSizeY(ctx.canvas.height * Math.min(opts.resImgMinSize[1] / image.height, 1));
+        theArea.setX(theArea.getX() * ratioNewCurWidth);
+        theArea.setY(theArea.getY() * ratioNewCurHeight);
+        theArea.setSizeX(theArea.getSizeX() * ratioNewCurWidth);
+        theArea.setSizeY(theArea.getSizeY() * ratioNewCurHeight);
+      } else {
+        elCanvas.prop('width', 0).prop('height', 0).css({'margin-top': 0});
+      }
+      drawScene();
+    };
+
+    this.setResultImageMinSize = function (size) {
+      var width = parseInt(size[0], 10);
+      var height = parseInt(size[1], 10);
+      if (!isNaN(width) && !isNaN(height)) {
+        opts.resImgMinSize = [width, height];
+        drawScene();
+      }
+    };
+
+    this.setResultImageMaxSize = function (size) {
+      var width = parseInt(size[0], 10);
+      var height = parseInt(size[1], 10);
+      if (!isNaN(width) && !isNaN(height)) {
+        opts.resImgMaxSize = [width, height];
+      }
+    };
+
+    this.setResultImageFormat = function (format) {
+      opts.resImgFormat = format;
+    };
+
+    this.setResultImageQuality = function (quality) {
+      quality = parseFloat(quality);
+      if (!isNaN(quality) && quality >= 0 && quality <= 1) {
+        opts.resImgQuality = quality;
+      }
+    };
+
+    /* Life Cycle begins */
+
+    // Init Context var
+    ctx = elCanvas[0].getContext('2d');
+
+    // Init CropArea
+    theArea = new CropAreaSquare(ctx, events);
+
+    // Init Mouse Event Listeners
+    $document.on('mousemove', onMouseMove);
+    elCanvas.on('mousedown', onMouseDown);
+    $document.on('mouseup', onMouseUp);
+
+    // Init Touch Event Listeners
+    $document.on('touchmove', onMouseMove);
+    elCanvas.on('touchstart', onMouseDown);
+    $document.on('touchend', onMouseUp);
+
+    // CropHost Destructor
+    this.destroy = function () {
+      $document.off('mousemove', onMouseMove);
+      elCanvas.off('mousedown', onMouseDown);
+      $document.off('mouseup', onMouseMove);
+
+      $document.off('touchmove', onMouseMove);
+      elCanvas.off('touchstart', onMouseDown);
+      $document.off('touchend', onMouseMove);
+
+      elCanvas.remove();
+    };
+  };
+
+}]);

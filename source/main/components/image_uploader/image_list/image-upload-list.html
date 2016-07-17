@@ -1,0 +1,66 @@
+<div class="image-upload-list" ng-class="{expanded: expanded, folded: !expanded}">
+
+  <div class="content">
+
+    <div class="upload-header">Images to upload</div>
+
+    <div class="list-content">
+      <ul class="item-list">
+        <li class="item-list-element" ng-repeat="(key, image) in uploadedImages | orderBy:orderItems">
+          <uploaded-image-item image-name="image.name"
+                               upload-progress="image.progress"
+                               on-select="selectItem(key)"
+                               on-remove="removeItem(key)">
+          </uploaded-image-item>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+
+  <div class="control-panel">
+
+    <div class="vspacer-small"></div>
+
+    <div class="btn-group-vertical" role="group">
+      <button ng-click="toggleList()" type="button"
+              class="btn btn-default btn-sm file-select-button"><span
+        class="glyphicon" ng-class="{ 'glyphicon-arrow-right' : !expanded, 'glyphicon-arrow-left' : expanded }"></span>
+      </button>
+      <button type="button" ng-click="selectImages()" class="btn btn-default btn-sm file-select-button"><span
+        class="glyphicon glyphicon-plus"></span>
+      </button>
+    </div>
+
+    <div class="vspacer-small"></div>
+
+    <div class="btn-group-vertical" role="group">
+      <button ng-click="selectPrevImage()" type="button"
+              class="btn btn-default btn-sm file-select-button"><span
+        class="glyphicon glyphicon-chevron-up"></span>
+      </button>
+      <button ng-click="selectNextImage()" type="button"
+              class="btn btn-default btn-sm file-select-button"><span
+        class="glyphicon glyphicon-chevron-down"></span>
+      </button>
+    </div>
+
+    <div class="vspacer-small"></div>
+
+    <div class="btn-group-vertical" role="group">
+      <button ng-click="saveChanges()" type="button"
+              class="btn btn-default btn-sm file-select-button"><span
+        class="glyphicon glyphicon-ok"></span>
+      </button>
+      <button ng-click="revertChanges()" type="button"
+              class="btn btn-default btn-sm file-select-button"><span
+        class="glyphicon glyphicon-remove"></span>
+      </button>
+    </div>
+
+  </div>
+
+  <input image-select-input style="display: none;" type="file" multiple accept="image/*">
+
+</div>

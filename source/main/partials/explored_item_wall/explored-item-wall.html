@@ -1,0 +1,28 @@
+<div ng-controller="ExploredItemWallController" class="orb-explored-item-wall">
+
+  <div infinite-scroll="loadMoreItems()" infinite-scroll-distance="2"
+       infinite-scroll-disabled="loading || noMoreResults">
+
+    <item-wall>
+      <brick-item ng-repeat="element in items">
+        <hunted-item item-id="{{ element.id }}"
+                     item-name="{{ element.name }}"
+                     item-description="{{ element.description }}"
+                     box-name="{{ element.boxName }}"
+                     item-image-path="{{ element.itemImage.url }}"
+                     box-image-path="{{ element.boxImage.url }}"
+                     settings="itemActions.settings"
+                     on-trade-clicked="itemActions.openTrade(element.id)"
+                     on-item-image-clicked="itemActions.showDetails(element.id)"
+                     on-box-clicked="itemActions.openBox(element.id)">
+        </hunted-item>
+      </brick-item>
+    </item-wall>
+
+  </div>
+
+  <div class="vspacer-medium"></div>
+  <div ng-show="loading" class="loading-notification">Loading...</div>
+  <div class="vspacer-huge"></div>
+
+</div>

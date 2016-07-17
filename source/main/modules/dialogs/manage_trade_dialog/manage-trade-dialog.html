@@ -1,0 +1,137 @@
+<div class="manage-trade-dialog">
+
+  <div class="modal-header">
+    <div class="modal-header-left">
+      <span class="glyphicon glyphicon-star"></span>
+    </div>
+
+    <div class="modal-header-center"><h3 class="modal-title">Trade details</h3></div>
+
+    <div class="modal-header-right">
+
+      <div class="btn-group" role="group">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                  aria-expanded="false">
+            <span class="glyphicon glyphicon-chevron-down"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Dropdown link</a></li>
+            <li><a href="#">Dropdown link</a></li>
+          </ul>
+        </div>
+        <button ng-click="close()" type="button" class="btn btn-default">
+          Cancel
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-body">
+
+    <item item-name="{{ selectedItem.name }}" selected-view-key="selectedView">
+      <item-cover class="item-cover" item-view-key="item-cover" item-images="selectedItem.images"
+                  item-view-tooltip="See the pictures"
+                  item-view-icon="glyphicon glyphicon-picture"></item-cover>
+      <item-details class="item-details" item-view-key="item-details" item-description="{{ selectedItem.description }}"
+                    item-tags="selectedItem.tags"
+                    item-view-tooltip="See the details"
+                    item-view-icon="glyphicon glyphicon-tag"></item-details>
+    </item>
+
+    <div class="bid-actions">
+
+      <div class="left-bid-actions">
+        <div class="btn-group">
+          <button ng-click="currentlyEvaluated = 'requested'" ng-class="{ active : currentlyEvaluated === 'requested' }"
+                  type="button" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-plus"></span>
+          </button>
+          <button ng-click="currentlyEvaluated = 'offered'" ng-class="{ active : currentlyEvaluated === 'offered' }"
+                  type="button" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-minus"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="center-bid-actions">
+        <button ng-if="currentlyEvaluated" ng-click="reevaluate()" class="btn btn-sm btn-primary evaluate-btn" type="button">
+          {{ getReevaluationMsg() }}
+        </button>
+      </div>
+
+      <div class="right-bid-actions"></div>
+
+    </div>
+
+    <div ng-show="currentlyEvaluated === 'requested'" class="requested-items">
+      <slick center-mode="true"
+             slides-to-scroll="1"
+             infinite="true"
+             speed="300"
+             init-onload="true"
+             data="requestedItems"
+             variable-width="true"
+             current-index="requestedItemsSlickOptions.currentIndex">
+
+        <traded-item ng-repeat="item in requestedItems"
+                    ng-click="selectRequestedItem(item.id)"
+                    traded-item-bid-state="{{ getRequestedItemBidState(item.id) }}"
+                    traded-item-selected="{{ isRequestedItemSelected(item.id) }}"
+                    traded-item-status="{{ getRequestedItemStatus(item.id) }}"
+                    traded-item-image="{{ item.thumbnail.url }}"></traded-item>
+
+      </slick>
+    </div>
+
+    <div ng-show="currentlyEvaluated === 'offered'" class="offered-items">
+      <slick center-mode="true"
+             slides-to-scroll="1"
+             infinite="true"
+             speed="300"
+             init-onload="true"
+             data="offeredItems"
+             variable-width="true"
+             current-index="offeredItemsSlickOptions.currentIndex">
+
+        <traded-item ng-repeat="item in offeredItems"
+                    ng-click="selectOfferedItem(item.id)"
+                    traded-item-bid-state="{{ getOfferedItemBidState(item.id) }}"
+                    traded-item-selected="{{ isOfferedItemSelected(item.id) }}"
+                    traded-item-status="{{ getOfferedItemStatus(item.id) }}"
+                    traded-item-image="{{ item.thumbnail.url }}"></traded-item>
+
+      </slick>
+    </div>
+
+    <div class="trade-details">
+
+      <separating-header
+        title="Message from the user"
+        details="This is what the other use has to say"
+        header-icon-class="glyphicon glyphicon-envelope">
+      </separating-header>
+
+      <textarea disabled="disabled" ng-model="otherBid.message" class="other-bid-message"></textarea>
+
+      <div class="vspacer-medium"></div>
+
+      <separating-header
+        title="Your reply"
+        description="not mandatory"
+        details="Try to target his questions"
+        header-icon-class="glyphicon glyphicon-envelope">
+      </separating-header>
+
+      <textarea ng-model="thisBid.message" class="this-bid-message"></textarea>
+
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <button ng-click="close()" type="button" class="btn btn-default">Cancel</button>
+    <button ng-click="bidAndClose()" type="button" class="btn btn-primary">Bid
+    </button>
+  </div>
+
+</div>

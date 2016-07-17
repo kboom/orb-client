@@ -1,0 +1,33 @@
+<div class="action-control">
+
+  <div ng-hide="selectedActionKey" dropdown class="dropdown">
+    <button class="btn btn-default dropdown-toggle" dropdown-toggle type="button" id="dropdownMenu1" data-toggle="dropdown"
+            aria-expanded="true">
+      {{ selectLabel }}
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+      <li ng-repeat="(key, action) in actions track by key | orderBy : index">
+        <a ng-click="selectAction(key)" role="menuitem" tabindex="-1">
+          {{ action.name }}
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div ng-show="selectedActionKey">
+    <div class="btn-group" dropdown>
+      <button ng-click="executeAction()" type="button" class="btn btn-default"><span ng-if="actions[selectedActionKey].length" class="badge">{{ actions[selectedActionKey].length }} </span> {{ actions[selectedActionKey].name }}</button>
+      <button type="button" class="btn btn-default dropdown-toggle" dropdown-toggle data-toggle="dropdown" aria-expanded="false">
+        <span class="caret"></span>
+        <span class="sr-only"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li ng-repeat="option in actions[selectedActionKey].options track by option.name"><a ng-click="callOption($index)">{{ option.name }}</a></li>
+      </ul>
+    </div>
+  </div>
+
+
+</div>
+

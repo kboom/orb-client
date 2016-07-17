@@ -1,0 +1,25 @@
+@import "mixins/form-controls.less";
+
+tags-input {
+
+  .tags .tag-item {
+    border-radius: 6px;
+    height: 29px;
+    margin: 2px;
+    padding: 0 8px;
+    background: none;
+    border: 1px solid #CCC;
+  }
+
+  .tags.focused {
+    .make-focused();
+  }
+
+  &.ng-pristine.ng-invalid .tags:not(.focused) {
+    box-shadow: inherit;
+  }
+
+}
+
+
+

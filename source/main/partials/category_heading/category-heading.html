@@ -1,0 +1,17 @@
+<div ng-controller="CategoryHeadingController" class="orb-category-heading">
+
+  <div class="category-banner">
+    <h1>{{ activeCategory.title }}</h1>
+  </div>
+
+  <h4 class="related-categories-header">Powiązane kategorie</h4>
+
+  <related-categories class="related-categories-container">
+    <related-category ng-repeat="category in activeCategory.relatedCategories"
+                      orb-title="{{ category.title }}"
+                      orb-thumbnail="{{ category.thumbnail }}"
+                      orb-on-click="selectCategory(category.id)">
+    </related-category>
+  </related-categories>
+
+</div>

@@ -1,0 +1,14 @@
+<div class="item">
+
+  <div class="item-header">
+    <div class="item-name">{{ name }}</div>
+    <div class="item-view-switches">
+      <div class="btn-group">
+        <button ng-repeat="switch in switches" ng-click="selectView(switch.key)" ng-class="{ active : isViewSelected(switch.key) }" ng-tooltip="{{ switch.tooltip }}"
+                type="button" class="btn btn-sm btn-default"><span class="{{ switch.icon }}"></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="item-view-placeholder"></div>
+
+</div>

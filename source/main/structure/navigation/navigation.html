@@ -1,0 +1,61 @@
+<nav class="orb-navigation navbar navbar-default navbar-fixed-top header"
+     role="navigation">
+
+  <div class="viewport nav-holder">
+
+    <div class="navbar-explore">
+
+      <div class="search-toolbar input-group navbar-input-group">
+        <div class="input-group-btn">
+          <button type="button" class="btn btn-default">
+            <span class="glyphicon glyphicon-home"></span>
+          </button>
+        </div>
+        <input type="text" class="form-control" placeholder="Keywords">
+
+        <div class="input-group-btn">
+          <button navigate-on-click="/" type="button" class="btn btn-default" tabindex="-1">
+            <span class="glyphicon glyphicon-th"></span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="hspacer-small"></div>
+
+    <div class="navbar-toolbox">
+
+      <div class="btn-group navbar-button-group" role="group" style="display: inherit;">
+        <button ui-sref="dialog.addItem" type="button" class="btn btn-primary"><span
+          class="glyphicon glyphicon-plus"></span> Add item!
+        </button>
+        <button ui-sref="page.explore" ui-sref-active="active" type="button" class="btn btn-default"><span
+          class="glyphicon glyphicon-folder-open"></span></button>
+        <button ui-sref="page.box" ui-sref-active="active" type="button" class="btn btn-default"><span
+          class="glyphicon glyphicon-folder-close"></span></button>
+        <button ui-sref="page.trading" ui-sref-active="active" type="button" class="btn btn-default"><span
+          class="glyphicon glyphicon glyphicon-sort"></span> <span class="badge">3</span></button>
+
+        <div is-open="isLoginDropdownOpened" class="btn-group dropdown-panel">
+          <button dropdown-panel-toggle type="button" class="btn btn-default">
+            <div ng-switch="UserPortfolioService.getUserPortfolio().active">
+              <div ng-switch-when="true">{{UserPortfolioService.getUserPortfolio().username}} &nbsp<span class="caret"></span></div>
+              <div ng-switch-default>Log in &nbsp<span class="caret"></span></div>
+            </div>
+          </button>
+          <dropdown-panel-content class="top-right-pointer">
+            <account-panel on-no-account-clicked="showSignUpPanel()"
+                           on-sign-in="UserSessionManager.signIn($login, $password, $onSuccess, $onFailure)"
+                           on-sign-out="UserSessionManager.signOut()"
+                           user-portfolio="UserPortfolioService.getUserPortfolio()"></account-panel>
+          </dropdown-panel-content>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+
+</nav>

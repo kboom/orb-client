@@ -1,0 +1,13 @@
+<div class="section-menu">
+    <div ng-include="tabContentPath" class="viewport section-tab-content"></div>
+    <div class="folding-line"></div>
+    <in-viewport-top watch-for=".section-menu .folding-line" in-viewport="unfolded">
+        <div class="section-toolbar-holder">
+            <div class="vspacer-small"></div>
+            <horizontal-divider></horizontal-divider>
+            <div class="section-toolbar">
+                <div ng-transclude class="viewport" viewport-wide></div>
+            </div>
+        </div>
+    </in-viewport-top>
+</div>

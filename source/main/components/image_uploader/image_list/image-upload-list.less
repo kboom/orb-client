@@ -1,0 +1,95 @@
+@upload-control-panel-width: 43px;
+@upload-panel-width: 255px;
+
+.image-upload-list {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: @upload-panel-width;
+  background-color: whitesmoke;
+  border-right: 1px solid #222;
+  -webkit-transition: left 500ms ease-in-out;
+  -moz-transition: left 500ms ease-in-out;
+  -o-transition: left 500ms ease-in-out;
+  transition: left 500ms ease-in-out;
+  box-shadow: 0 0 2px #333;
+  z-index: 1;
+
+  .content {
+    border: 1px solid #bbb;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: @upload-control-panel-width;
+    top: 0;
+  }
+
+  .upload-header {
+    background-color: #cacaca;
+    border-bottom: 1px solid #999;
+    box-shadow: 0 0 9px #888888;
+    font-size: 12px;
+    font-weight: 600;
+    left: 0;
+    padding-bottom: 6px;
+    padding-top: 5px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+  }
+
+  .control-panel {
+    position: absolute;
+    width: @upload-control-panel-width;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #444;
+    text-align: center;
+  }
+
+  .open-bar-stripe {
+    background-color: #CECECE;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 1px;
+    right: 1px;
+  }
+
+  .list-content {
+    bottom: 2px;
+    left: 2px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 0 9px;
+    position: absolute;
+    right: 5px;
+    top: 33px;
+  }
+
+  .item-list {
+    margin: 0;
+    padding: 0;
+  }
+
+  .item-list-element {
+    list-style: none;
+    color: #CECECE;
+    padding: 10px 0;
+  }
+
+  .item-list-element:hover {
+    color: blue;
+  }
+
+}
+
+.image-upload-list.expanded {
+  left: 0;
+}
+
+.image-upload-list.folded {
+  left: -@upload-panel-width + @upload-control-panel-width;
+}

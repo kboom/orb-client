@@ -1,0 +1,12 @@
+angular.module('orb.modules',
+  [
+    'orb.modules.exploration',
+    'orb.modules.trading',
+    'orb.modules.box',
+    'orb.modules.examineItemDialog',
+    'orb.modules.manageItemDialog',
+    'orb.modules.manageTradeDialog',
+    'orb.modules.signUpDialog',
+    'orb.modules.suggestTradeDialog'
+  ]
+);

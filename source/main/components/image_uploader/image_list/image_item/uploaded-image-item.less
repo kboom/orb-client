@@ -1,0 +1,37 @@
+@import (reference) '../../../../styles/mixins/words.less';
+
+.uploaded-image-item {
+  line-height: 42px;
+  cursor: pointer;
+
+  .image-actions {
+    float: right;
+  }
+
+  .image-name {
+    .wordelipsis();
+    float: left;
+    width: 120px;
+    height: 40px;
+  }
+
+  .image-name.uploading {
+    color: #CECECE;
+  }
+
+  .image-name.uploaded {
+    color: #333;
+  }
+
+  .item-placeholder:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+}
+
+.uploaded-image-item:hover {
+  color: #111;
+}
+

@@ -1,0 +1,43 @@
+<div class="hunted-item">
+    <div class="item-image-wrapper">
+        <div class="item-image-overlay">
+
+            <div class="left-buttons">
+                <div dropdown ng-if="settings" class="btn-group">
+                    <button dropdown-toggle type="button" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </button>
+                    <ul class="dropdown-menu left-pointed-dropdown-menu" role="menu">
+                        <li ng-repeat="option in settings"><a ng-click="option.onSelect()">{{ option.name }}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="right-buttons">
+                <button ng-click="onTradeClicked(itemId)" type="button" class="btn btn-primary btn-sm">
+                    <span class="glyphicon glyphicon-transfer"></span>
+                </button>
+            </div>
+
+            <div ng-click="onItemImageClicked()" class="item-hover-details">
+
+            </div>
+
+        </div>
+        <img class="item-image" ng-src="{{ itemImagePath }}" />
+    </div>
+    <div class="item-fixed-details">
+        <div class="item-name">{{ itemName }}</div>
+        <!--<div class="item-description">{{ itemDescription }}</div>-->
+    </div>
+    <div ng-click="onBoxClicked()" class="item-box-link-wrapper">
+        <a class="item-box-link">
+            <img class="box-icon" ng-src="{{ boxImagePath }}"/>
+            <div class="box-name">{{ boxName }}</div>
+            <div class="box-stats">
+                <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp 13 &nbsp
+                <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>&nbsp 13 &nbsp
+            </div>
+        </a>
+    </div>
+</div>
+

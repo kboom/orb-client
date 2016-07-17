@@ -1,0 +1,21 @@
+<div class="item-details">
+
+  <separating-header
+    title="Description"
+    details="Remember that what author says not always is true!"
+    header-icon-class="glyphicon glyphicon-pencil">
+  </separating-header>
+
+  <div class="well" ng-bind-html="description"></div>
+
+  <separating-header
+    title="Tags"
+    details="This helps you to find out about items more."
+    header-icon-class="glyphicon glyphicon-tags">
+  </separating-header>
+
+  <div class="well">
+    <tag ng-repeat="tag in tags" class="listed-tag">{{ tag.name }}</tag>
+  </div>
+
+</div>

@@ -1,0 +1,7 @@
+<div class="form-group" ng-class="{ 'has-error' : !valid }">
+  <label class="component-label">{{ label }}
+    <span class="glyphicon component-icon" data-tooltip-html-unsafe="{{ valid ? infoMessage : errorMessage }}"
+          ng-class="{ 'glyphicon-question-sign': valid, 'glyphicon-exclamation-sign icon-error': !valid }"></span>
+  </label>
+  <div class="component-placeholder" ng-transclude></div>
+</div>

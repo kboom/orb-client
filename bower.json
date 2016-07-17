@@ -1,0 +1,81 @@
+{
+  "name": "orangebox-web",
+  "applicationRoot": "orangebox",
+  "version": "0.0.0",
+  "tmp": ".tmp",
+  "source": {
+    "dir": {
+      "base": "source",
+      "main": "<%= cfg.source.dir.base %>/main",
+      "test": "<%= cfg.source.dir.base %>/test",
+      "external": "node_modules"
+    },
+    "resources": "**/*.{html,js,css,less,json,svg,xml,otf}",
+    "extras": [
+      "bootstrap/fonts/*",
+      "font-awesome/fonts/*"
+    ],
+    "files": {
+      "index": "index.html"
+    }
+  },
+  "target": {
+    "dir": {
+      "base": "target",
+      "main": "<%= cfg.target.dir.base %>/main",
+      "test": "<%= cfg.target.dir.base %>/test",
+      "lib": "<%= cfg.target.dir.base %>/lib",
+      "external": "<%= cfg.target.dir.base %>/external"
+    },
+    "resources": "**/*.{html,js,css,png,jpg,gif,json,svg,xml,otf}",
+    "files": {
+      "index": "main/index.html"
+    }
+  },
+  "dependencies": {
+    "angular": "~1.2.28",
+    "es5-shim": "~4.1.0",
+    "angular-resource": "~1.2.28",
+    "angular-cookies": "~1.2.28",
+    "angular-sanitize": "~1.2.28",
+    "angular-animate": "~1.2.28",
+    "angular-touch": "~1.2.28",
+    "angular-route": "~1.2.28",
+    "angular-mocks": "~1.2.28",
+    "angular-scenario": "~1.2.28",
+    "angular-bootstrap": "~0.12.1",
+    "underscore": "~1.8.2",
+    "angular-underscore-module": "~1.0.1",
+    "summernote": "~0.6.1",
+    "within-viewport": "~0.0.3",
+    "ngInfiniteScroll": "~1.2.0",
+    "angular-translate": "~2.6.0",
+    "slick-carousel": "~1.3.9",
+    "textAngular": "~1.3.7",
+    "ng-tags-input": "~2.1.1",
+    "ngImgCrop": "~0.3.2",
+    "hashids": "~1.0.1",
+    "angular-masonry": "~0.9.1",
+    "masonry": "~3.2.2",
+    "angular-ui-router": "~0.2.13",
+    "ui-router-extras": "~0.0.13",
+    "ng-lodash": "~0.3.0",
+    "angular-messages": "~1.5.3"
+  },
+  "overrides": {
+    "hashids": {
+      "main": "lib/hashids/hashids.min.js"
+    },
+    "masonry": {
+      "main": "lib/masonry/dist/masonry.pkgd.js"
+    }
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.28",
+    "angular-scenario": "~1.2.28"
+  },
+  "resolutions": {
+    "angular": "~1.2.28",
+    "masonry": "~3.1.0"
+  }
+}

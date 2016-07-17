@@ -1,0 +1,52 @@
+<div class="orb-suggest-trade-panel" ng-controller="SuggestTradePanelController">
+
+  <div role="group" class="btn-group btn-group-justified">
+    <div role="group" class="btn-group">
+      <button ng-click="toggleItemTrade()" class="btn" type="button"
+              ng-class="{ 'btn-success' : !isCurrentItemTraded(), 'btn-danger' : isCurrentItemTraded() }">{{
+        getTradeMessage() }}
+      </button>
+    </div>
+  </div>
+
+  <div ng-if="tradeManager.isAtLeastOneItemTraded()" class="trade-view">
+
+    <!-- todo there's a bug when the user navigates backwards - it's probably due to slick cloning DOM elements which in turn have no way of knowing what's happening to the angular scope -->
+    <div class="available-items">
+      <slick center-mode="true"
+             slides-to-scroll="1"
+             infinite="true"
+             speed="300"
+             init-onload="true"
+             data="boxItems"
+             variable-width="true"
+             current-index="boxedItemSlickOptions.currentSlickIndex">
+
+        <traded-item ng-repeat="item in boxItems"
+                    ng-class="{ first: $index == 0 }"
+                    ng-click="selectItem(item.id)"
+                    traded-item-selected="{{ isItemSelected(item.id) }}"
+                    traded-item-status="{{ tradeManager.isItemTraded(item.id) ? 'ACCEPTED' : '' }}"
+                    traded-item-image="{{ item.itemImage.url }}"></traded-item>
+
+      </slick>
+    </div>
+
+    <div class="trade-action-bar"></div>
+
+    <div class="trade-details">
+
+      <separating-header
+        title="Message to the owner"
+        description="not mandatory"
+        details="Try to make an impression"
+        header-icon-class="glyphicon glyphicon-envelope">
+      </separating-header>
+
+      <textarea ng-model="tradeManager.trade.message" class="message-area"></textarea>
+
+    </div>
+
+  </div>
+
+</div>

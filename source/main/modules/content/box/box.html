@@ -1,0 +1,31 @@
+<div class="orb-box">
+
+  <section-menu
+    content-base-url="/modules/content/box"
+    receive-commands="commands"
+    active-tab="menu.activeTab">
+
+    <section-toolbar-left>
+      <ng-include ng-if="menu.active.contentActionsPath" src="getActionsPath()" />
+    </section-toolbar-left>
+
+    <section-toolbar-tabs>
+      <section-tab ng-repeat="item in menu.items" id="{{ item.id }}" content-url="box-header.html">
+        <text-tab>{{ item.title }}</text-tab>
+      </section-tab>
+    </section-toolbar-tabs>
+
+    <section-toolbar-right>
+      <button ng-click="toggle()" type="button" class="btn btn-default" aria-label="Left Align">
+                <span ng-class="{ 'glyphicon-chevron-down' : isFolded(), 'glyphicon-chevron-up' : !isFolded() }"
+                      class="glyphicon" aria-hidden="true"></span>
+      </button>
+    </section-toolbar-right>
+
+  </section-menu>
+
+  <div class="viewport section-content">
+    <ng-include src="getContentPath()"></ng-include>
+  </div>
+
+</div>

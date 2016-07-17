@@ -1,0 +1,47 @@
+@orb-item-selector-selection-glow: #5CA8D0;
+@orb-item-selector-hover-glow: #70BFE8;
+@orb-item-selector-selected-hover-glow: #4F99C0;
+
+.item-selector {
+  &.selectable > .select-wrapper:hover {
+    box-shadow: 0 0 20px @orb-item-selector-hover-glow;
+  }
+
+  &.selected.selectable > .select-wrapper {
+    box-shadow: 0 0 20px @orb-item-selector-selection-glow;
+  }
+
+  &.selected.selectable > .select-wrapper:hover {
+    box-shadow: 0 0 20px @orb-item-selector-selection-glow;
+  }
+
+  .select-button {
+    position: absolute;
+    right: -2px;
+    top: -3px;
+    width: 31px;
+    height: 31px;
+    background-color: #b3b3b3;
+    border-radius: 50%;
+    z-index: 1;
+    box-shadow: 0 0 2px #333;
+  }
+
+  .select-button .glyphicon {
+    padding: 7px 9px;
+    color: #105cb6;
+  }
+
+  .select-button:hover .glyphicon {
+    color: white;
+  }
+
+  .select-button:hover {
+    background-color: #105cb6;
+  }
+
+  .select-wrapper {
+
+  }
+
+}

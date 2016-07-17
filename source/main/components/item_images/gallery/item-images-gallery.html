@@ -1,0 +1,19 @@
+<div class="item-images-gallery">
+
+  <slick
+    init-onload="true"
+    data="images"
+    dots="true"
+    adaptive-height="false"
+    variable-width="false"
+    infinite="true"
+    slides-to-show="1"
+    slides-to-scroll="1">
+
+    <div ng-repeat="image in images">
+      <img class="item-image" ng-src="{{ image.url }}"/>
+    </div>
+
+  </slick>
+
+</div>

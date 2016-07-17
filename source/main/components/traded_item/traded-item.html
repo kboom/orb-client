@@ -1,0 +1,7 @@
+<div class="traded-item">
+  <div class="traded-item-placeholder {{ status.toLowerCase() }}" ng-class="{ selected : isSelected == 'true', agreed : bidState == AGREED, disagreed: bidState == DISAGREED, neutral : bidState == NEUTRAL }">
+    <div class="status-sign"></div>
+    <div class="traded-item-overlay"></div>
+    <img class="traded-item-image" ng-src="{{ image }}"/>
+  </div>
+</div>

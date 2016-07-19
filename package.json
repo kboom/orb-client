@@ -27,7 +27,6 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "preinstall": "rm -rf node_modules",
     "test": "grunt test",
     "postinstall": "grunt build",
     "start": "grunt serve"

@@ -30,8 +30,5 @@
     "test": "grunt test",
     "postinstall": "grunt build",
     "start": "grunt serve"
-  },
-  "dependencies": {
-    "grunt-cli": "^1.2.0"
   }
 }

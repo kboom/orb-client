@@ -1,7 +1,7 @@
 {
   "name": "orangebox-client",
   "version": "0.0.1",
-  "devDependencies": {
+  "dependencies": {
     "assemble-less": "^0.7.0",
     "bootstrap": "^3.3.2",
     "font-awesome": "^4.5.0",

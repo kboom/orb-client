@@ -27,8 +27,8 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "node node_modules/grunt-cli/bin/grunt test",
-    "postinstall": "node node_modules/grunt-cli/bin/grunt build",
-    "start": "node node_modules/grunt-cli/bin/grunt serve"
+    "test": "grunt test",
+    "postinstall": "grunt build",
+    "start": "grunt serve"
   }
 }

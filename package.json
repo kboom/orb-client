@@ -29,6 +29,8 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "postinstall": "grunt build",
+    "start": "grunt serve"
   }
 }

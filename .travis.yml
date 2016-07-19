@@ -1,0 +1,10 @@
+language: node_js
+after_install:
+  grunt build
+deploy:
+  provider: heroku
+  api_key:
+    secure: snNoOKwKXfnqYS8z7yXcH9fN7zXdyIqDa+ajSI90I6nRIFKkwhr8LT5nPG5UrtTiDEln52wjxLbOK6ysWvbNJ30kP0Zux10DK0CG9C8W4dqdTjzLhlcnyJiphofyRTRb+i2r+uljFuf75jBuIhchWGQNPZMwH6V6rGIoKVdOuOO8vMyhvm1/u/T4juPGlOGunkcKo+h/449Ck0o1NuMEERCB8hEfGkGjm0aLeA1jO5uFfsI8cT/9gb2DYxUt/+Uo2vDkYICOM8MDN8uA3+um4858YUPkTEtDYLiXjHS9FKyQpn/8To1IZuhvHgEoshUC9+mt03BP2EfbnFYi0lmWeHhHhyG1ZIXcz+BNRuBNaDfJ3cIPbn++XxZ3MGomNJIVY+IDzOKMhVZgLyl+o0STdAvGX8HfkjDzEjAGFxE7meRzHNjHPxDMko5peiLOCjBPvtK0M1kiSmgoBNUjlnBmcJyGSGMcphKv80z+XJKkL5iRsre5j/62mh5QaCMYb204xOvta1E4GMzXbqQoA5HzqujNwlbeglIy67FWEZZKFtZ99NULGBrbgCfHr4raUdI1Jo9gNhlgIabf/Uy9Ctdcb93ApMaGYGhhef6nipuMWyzbWaLYZDbrrJIG32J+pl5IyoUs3ossFbmfnK/MvVws9QkEWiRAk49TjZuiorLugeI=
+  app: orb-client
+  on:
+    repo: kboom/orb-client

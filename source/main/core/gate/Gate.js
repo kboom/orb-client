@@ -3,33 +3,34 @@ angular.module('orb.core.gate').provider('Gate',
 
     var routeMap = {};
 
-    function readRoutes(url) {
-      var routes = $.ajax({
-        type: 'GET',
-        url: url,
-        dataType: 'json',
-        data: {},
-        async: false
-      }).responseJSON;
-      angular.extend(routeMap, routes);
-    }
+    this.$get = function (server) {
 
+      function readRoutes(url) {
+        var routes = $.ajax({
+          type: 'GET',
+          url: url,
+          dataType: 'json',
+          data: {},
+          async: false
+        }).responseJSON;
+        angular.extend(routeMap, routes);
+      }
 
-    // cache links on load
+      function getRoute(name) {
+        return _.find(routeMap.resources, 'name', name);
+      }
 
-    function getUrl(name) {
-      return 'http://localhost:5000/api' + name.split('.').reduce(function (obj, i) {
-          return obj[i];
-        }, routeMap);
-    }
+      function getUrl(name) {
+        var route = getRoute(name);
+        return server.gatewayUrl + route.url;
+      }
 
-    readRoutes("http://localhost:5000/api/api");
+      readRoutes(server.gatewayUrl);
 
-
-    this.$get = function () {
       return {
         getUrl: getUrl
       };
+
     };
 
   });
